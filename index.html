@@ -5,34 +5,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Controle Financeiro</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
     <main>
-        <form action="">
-            <h1>Nova transação</h1>
+        <section id="new-transaction">
+            <form action="">
+                <h1>Nova transação</h1>
 
-            <label for="name">Nome:</label>
-            <input type="text" id="name">
-            <label for="value">Valor:</label>
-            <input type="text" id="value">
-            <button id="btnOut">Despesa</button>
-            <button id="btnIn">Entrada</button>
-            <label for="description">Descrição</label>
-            <textarea id="description" cols="30" rows="10"></textarea>
-            <button type="submit">Salvar</button>
-        </form>
+                <label for="name">Nome:</label>
+                <input type="text" id="name" placeholder="O que você comprou/recebeu?">
+                <section>
+                    <label for="value">Valor:</label>
+                    <input type="text" id="value" placeholder="Valor da transação">
+                    <button id="btnOut">Despesa</button>
+                    <button id="btnIn">Entrada</button>
+                </section>
+                <label for="description">Descrição:</label>
+                <textarea id="description" cols="30" rows="10" placeholder="Descreva a transação"></textarea>
+                <button type="submit" id="submit">Salvar</button>
+            </form>
+            <p><strong>Saldo R$<span id="balance">0,00</span></strong></p>
+        </section>
 
-        <table>
-            <thead>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>Valor</th>
-                <th>Descrição</th>
-            </thead>
-            <tbody id="entries">
-            </tbody>
-        </table>
+        <section>
+            <h1>Transações</h1>
+            <table>
+                <thead>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Valor</th>
+                    <th>Descrição</th>
+                </thead>
+                <tbody id="entries">
+                    <tr>
+                        <td>1</td>
+                        <td>Demo</td>
+                        <td>R$ 0,00</td>
+                        <td>Não há transações, insira uma nova</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
     </main>
 
     <footer>
