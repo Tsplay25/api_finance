@@ -2,7 +2,7 @@ function rmButton(id) {
     const remove = document.createElement('button');
     const icon = document.createElement('img');
 
-    icon.src = './assets/remove';
+    icon.src = './assets/remove.png';
     remove.id = `rm-${id}`;
 
     remove.append(icon);
@@ -23,6 +23,7 @@ function renderEntry(entryData) {
     rowContent.forEach(item => {
         row.append(createTd(item));
     });
+    row.append(rmButton(entryData.id));
 
     const body = document.querySelector('#entries');
     body.append(row);

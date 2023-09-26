@@ -47,6 +47,7 @@ section button {
 #btnOut:hover {
     color: #f1faee;
     background-color: #e63946;
+    transition: background-color 0.3s;
 }
 
 #btnIn {
@@ -57,6 +58,7 @@ section button {
 #btnIn:hover {
     color: #f1faee;
     background-color: #2b9348;
+    transition: background-color 0.3s;
 }
 
 input,
@@ -78,10 +80,42 @@ textarea {
 #submit:hover {
     color: #f1faee;
     background-color: #1d3557;
+    transition: background-color 0.3s;
+}
+
+#handleTransaction  {
+    display: flex;
+    justify-content: center;
+}
+#handleTransaction button {
+    margin: 1rem;
+    padding: .5rem;
+}
+
+#removeTransaction {
+    color: #e63946;
+    border-color: #e63946;
+}
+
+#removeTransaction:hover {
+    color: #f1faee;
+    background-color: #e63946;
+    transition: background-color 0.3s;
+}
+
+#editTransaction {
+    color: #00b4d8;
+    border-color: #00b4d8;
+}
+
+#editTransaction:hover {
+    color: #f1faee;
+    background-color: #00b4d8;
+    transition: background-color 0.3s;
 }
 
 section p {
-    margin: 2rem 0;
+    margin: 1rem 0;
     font-size: 3rem;
 }
 
