@@ -1,8 +1,16 @@
 {
-    "entries": {
-        "id": 1,
-        "name": "demo",
-        "value": 0.00,
-        "description": "Não há transações, insira uma nova"
+  "entries": [
+    {
+      "id": 1,
+      "name": "Demo",
+      "value": "0.00",
+      "description": "Lista vazia, insira novos valores"
+    },
+    {
+      "name": "Pão de batata",
+      "value": "5",
+      "description": "Pão de batata do ra",
+      "id": 2
     }
+  ]
 }

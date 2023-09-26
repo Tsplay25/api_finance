@@ -1,14 +1,3 @@
-function rmButton(id) {
-    const remove = document.createElement('button');
-    const icon = document.createElement('img');
-
-    icon.src = './assets/remove.png';
-    remove.id = `rm-${id}`;
-
-    remove.append(icon);
-    return remove;
-}
-
 function createTd(value) {
     const td = document.createElement('td');
     td.innerText = value;
@@ -19,20 +8,52 @@ function renderEntry(entryData) {
     const row = document.createElement('tr');
     row.id = `entry-${entryData.id}`;
 
-    const rowContent = [entryData.id, entryData.name, entryData.value, entryData.description];
-    rowContent.forEach(item => {
+    const rowContent = [
+        entryData.id,
+        entryData.name,
+        entryData.value,
+        entryData.description,
+    ];
+    rowContent.forEach((item) => {
         row.append(createTd(item));
     });
-    row.append(rmButton(entryData.id));
 
     const body = document.querySelector('#entries');
     body.append(row);
 }
 
 async function getEntries() {
-    const entries = await fetch('http://localhost:3000/entries').then(res => res.json());
+    const entries = await fetch('http://localhost:3000/entries').then((res) =>
+        res.json()
+    );
     // console.log(entries);
-    renderEntry(entries);
+    entries.forEach(renderEntry)
+    // renderEntry(entries);
 }
 
-getEntries();
+document.addEventListener('DOMContentLoaded', () => {
+    getEntries();
+});
+
+const form = document.querySelector('form');
+form.addEventListener('submit', async (ev) => {
+    ev.preventDefault();
+
+    const transactionData = {
+        name: document.querySelector('#name').value,
+        value: document.querySelector('#value').value,
+        description: document.querySelector('#description').value,
+    };
+
+    const response = await fetch('http://localhost:3000/entries', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(transactionData),
+    });
+
+    const saveTransaction = await response.json();
+    form.reset();
+    renderEntry(saveTransaction);
+});
