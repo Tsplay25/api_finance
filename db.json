@@ -1,3 +1,18 @@
 {
-  "entries": []
+  "entries": [
+    {
+      "name": "Salario",
+      "value": 1100,
+      "description": "setembro",
+      "type": "credit",
+      "id": 1
+    },
+    {
+      "name": "Chocolate",
+      "value": 5,
+      "description": "branco",
+      "type": "debit",
+      "id": 2
+    }
+  ]
 }

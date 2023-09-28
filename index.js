@@ -18,7 +18,7 @@ function renderEntry(entryData) {
         entryData.value,
         entryData.description,
     ];
-    
+
     rowContent.forEach((item) => {
         row.append(createTd(item));
     });
@@ -35,7 +35,10 @@ async function updateBalance() {
         (res) => res.json()
     );
 
-    getBalance.forEach((entry) => (sum += parseFloat(entry.value)));
+    getBalance.forEach((entry) => {
+        if (entry.type === 'debit') sum -= parseFloat(entry.value);
+        else if (entry.type === 'credit') sum += parseFloat(entry.value);
+    });
 
     const brl = sum.toLocaleString('pt-BR', {
         style: 'currency',
@@ -80,8 +83,10 @@ form.addEventListener('submit', async (ev) => {
 
     let type;
 
-    if (value.classList === 'debitValue') type = 'debit';
-    else if (value.classList === 'creditValue') type = 'credit';
+    console.log(value.classList);
+    if (value.classList.value === 'debitValue') type = 'debit';
+    else if (value.classList.value === 'creditValue') type = 'credit';
+    console.log(type);
 
     const transactionData = {
         name: name.value,
