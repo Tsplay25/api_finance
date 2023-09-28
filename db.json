@@ -1,15 +1,9 @@
 {
   "entries": [
     {
-      "id": 1,
-      "name": "Demo",
-      "value": "0.00",
-      "description": "Lista vazia, insira novos valores"
-    },
-    {
-      "name": "Pão de batata",
-      "value": "5",
-      "description": "Pão de batata do ra",
+      "name": "Inglês ",
+      "value": "3000",
+      "description": "Basico",
       "id": 2
     }
   ]

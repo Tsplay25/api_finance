@@ -57,3 +57,15 @@ form.addEventListener('submit', async (ev) => {
     form.reset();
     renderEntry(saveTransaction);
 });
+
+const del = document.querySelector('#removeTransaction');
+del.addEventListener('click', async () => { 
+    const id = prompt("Digite o id da transação que deseja remover");
+
+    await fetch('http://localhost:3000/entries/'+id, {
+        method: 'DELETE',
+    });
+
+    getEntries();
+    location.reload(true);
+})
