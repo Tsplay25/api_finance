@@ -18,7 +18,7 @@
                 <input type="text" id="name" placeholder="O que você comprou/recebeu?">
                 <section>
                     <label for="value">Valor:</label>
-                    <input type="text" id="value" placeholder="Valor da transação">
+                    <input type="number" min="0" step=".01" id="value" placeholder="Valor da transação">
                     <button id="btnOut">Despesa</button>
                     <button id="btnIn">Entrada</button>
                 </section>
@@ -31,7 +31,7 @@
                 <button id="removeTransaction">Remover transação</button>
                 <button id="editTransaction">Editar transação</button>
             </div>
-            <p><strong>Saldo R$<span id="balance">0,00</span></strong></p>
+            <p><strong>Saldo <span id="balance">R$ 0.00</span></strong></p>
         </section>
 
         <section>

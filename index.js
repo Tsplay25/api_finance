@@ -26,6 +26,22 @@ function renderEntry(entryData) {
     body.append(row);
 }
 
+async function updateBalance() {
+    const balance = document.querySelector('#balance');
+    let sum=0;
+
+    const getBalance =  await fetch('http://localhost:3000/entries').then((res)=>res.json());
+
+    getBalance.forEach(entry => sum += parseFloat(entry.value));
+
+    const brl = sum.toLocaleString('pt-BR', {
+        style: 'currency',
+        currency: 'BRL'
+    });
+
+    balance.innerText = brl;
+}
+
 async function getEntries() {
     const entries = await fetch('http://localhost:3000/entries').then((res) =>
         res.json()
@@ -37,6 +53,7 @@ async function getEntries() {
 
 document.addEventListener('DOMContentLoaded', () => {
     getEntries();
+    updateBalance();
 });
 
 const form = document.querySelector('form');
@@ -60,6 +77,7 @@ form.addEventListener('submit', async (ev) => {
     const saveTransaction = await response.json();
     form.reset();
     renderEntry(saveTransaction);
+    updateBalance();
 });
 
 const del = document.querySelector('#removeTransaction');
@@ -72,6 +90,7 @@ del.addEventListener('click', async () => {
 
     getEntries();
     location.reload(true);
+    updateBalance();
 })
 
 const edit = document.querySelector('#editTransaction');
@@ -101,6 +120,6 @@ edit.addEventListener('click', async () => {
         },
         body: JSON.stringify(data),
     });
-    
+
     location.reload(true);
 })
