@@ -39,26 +39,36 @@ section button {
     border-style: inset;
 }
 
-#btnOut {
+#debit {
     color: #e63946;
     border-color: #e63946;
 }
 
-#btnOut:hover {
+#debit:hover {
     color: #f1faee;
     background-color: #e63946;
     transition: background-color 0.3s;
 }
 
-#btnIn {
+#credit {
     color: #2b9348;
     border-color: #2b9348;
 }
 
-#btnIn:hover {
+#credit:hover {
     color: #f1faee;
     background-color: #2b9348;
     transition: background-color 0.3s;
+}
+
+.debitValue {
+    border: 2px solid #e63946;
+    border-color: #e63946;
+}
+
+.creditValue {
+    border: 2px solid #2b9348;
+    border-color: #2b9348;
 }
 
 input[type=number]::-webkit-inner-spin-button,

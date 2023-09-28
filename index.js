@@ -18,6 +18,7 @@ function renderEntry(entryData) {
         entryData.value,
         entryData.description,
     ];
+    
     rowContent.forEach((item) => {
         row.append(createTd(item));
     });
@@ -28,27 +29,43 @@ function renderEntry(entryData) {
 
 async function updateBalance() {
     const balance = document.querySelector('#balance');
-    let sum=0;
+    let sum = 0;
 
-    const getBalance =  await fetch('http://localhost:3000/entries').then((res)=>res.json());
+    const getBalance = await fetch('http://localhost:3000/entries').then(
+        (res) => res.json()
+    );
 
-    getBalance.forEach(entry => sum += parseFloat(entry.value));
+    getBalance.forEach((entry) => (sum += parseFloat(entry.value)));
 
     const brl = sum.toLocaleString('pt-BR', {
         style: 'currency',
-        currency: 'BRL'
+        currency: 'BRL',
     });
 
     balance.innerText = brl;
 }
 
+const debit = document.querySelector('#debit');
+debit.addEventListener('click', (ev) => {
+    ev.preventDefault();
+
+    value.classList = 'debitValue';
+});
+
+const credit = document.querySelector('#credit');
+credit.addEventListener('click', (ev) => {
+    ev.preventDefault();
+
+    value.classList = 'creditValue';
+});
+
+// GET
 async function getEntries() {
     const entries = await fetch('http://localhost:3000/entries').then((res) =>
         res.json()
     );
-    // console.log(entries);
-    entries.forEach(renderEntry)
-    // renderEntry(entries);
+
+    entries.forEach(renderEntry);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -56,14 +73,21 @@ document.addEventListener('DOMContentLoaded', () => {
     updateBalance();
 });
 
+// POST
 const form = document.querySelector('form');
 form.addEventListener('submit', async (ev) => {
     ev.preventDefault();
 
+    let type;
+
+    if (value.classList === 'debitValue') type = 'debit';
+    else if (value.classList === 'creditValue') type = 'credit';
+
     const transactionData = {
         name: name.value,
-        value: value.value,
+        value: parseFloat(value.value),
         description: description.value,
+        type: type,
     };
 
     const response = await fetch('http://localhost:3000/entries', {
@@ -80,40 +104,50 @@ form.addEventListener('submit', async (ev) => {
     updateBalance();
 });
 
+// DELETE
 const del = document.querySelector('#removeTransaction');
-del.addEventListener('click', async () => { 
-    const id = prompt("Digite o id da transação que deseja remover");
+del.addEventListener('click', async () => {
+    const id = prompt('Digite o id da transação que deseja remover');
 
-    await fetch('http://localhost:3000/entries/'+id, {
+    await fetch('http://localhost:3000/entries/' + id, {
         method: 'DELETE',
     });
 
     getEntries();
-    location.reload(true);
     updateBalance();
-})
+    location.reload(true);
+});
 
+// EDIT
 const edit = document.querySelector('#editTransaction');
 edit.addEventListener('click', async () => {
-    const id = prompt("Digite o id da transação que deseja editar");
+    const id = prompt('Digite o id da transação que deseja editar');
 
-    const entry = await fetch('http://localhost:3000/entries/'+id).then(res => res.json());
+    const entry = await fetch('http://localhost:3000/entries/' + id).then(
+        (res) => res.json()
+    );
 
     let data = {
         name: entry.name,
         value: entry.value,
-        description: entry.description
-    }
+        description: entry.description,
+    };
 
-    const newName = prompt(`O nome atual é: "${data.name}", digite o novo nome:`);
-    const newValue = prompt(`O valor atual é: "${data.value}", digite o novo valor:`);
-    const newDescription =  prompt(`A descrição atual é: "${data.description}", digite a nova descrição:`);
+    const newName = prompt(
+        `O nome atual é: "${data.name}", digite o novo nome:`
+    );
+    const newValue = prompt(
+        `O valor atual é: "${data.value}", digite o novo valor:`
+    );
+    const newDescription = prompt(
+        `A descrição atual é: "${data.description}", digite a nova descrição:`
+    );
 
     data.name = newName;
     data.value = newValue;
     data.description = newDescription;
 
-    await fetch('http://localhost:3000/entries/'+id, {
+    await fetch('http://localhost:3000/entries/' + id, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -121,5 +155,6 @@ edit.addEventListener('click', async () => {
         body: JSON.stringify(data),
     });
 
+    updateBalance();
     location.reload(true);
-})
+});
